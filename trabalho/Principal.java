@@ -16,14 +16,15 @@ public class Principal {
 		
 		/*Consulta*/
 		System.out.println("Consultas");
-		System.out.println("1 - ID:");
-		System.out.println("2 - Title:");
-		System.out.println("3 - Year:");
-		System.out.println("4 - Score:");
-		System.out.println("5 - Votes:");
+		System.out.println("1 - ID: ");
+		System.out.println("2 - Title: ");
+		System.out.println("3 - Year: ");
+		System.out.println("4 - Score: ");
+		System.out.println("5 - Votes: ");
 		System.out.println("6 - Os 10 com mais score: ");
 		System.out.println("7 - Os 10 mais votados: ");
 		System.out.println("8 - Os 10 mais antigos: ");
+		System.out.println("9 - Os 10 mais recentes: ");
 		int escolha = entrada.nextInt();
 		
 		switch (escolha) {
@@ -57,7 +58,9 @@ public class Principal {
 		case 8:
 			sql = "SELECT title, year, score, votes FROM movie ORDER BY year ASC LIMIT 10";
 			break;
-
+		case 9:
+			sql = "SELECT title, year, score, votes FROM movie ORDER BY year DESC LIMIT 10";
+			break;
 		default:
 			break;
 		}
