@@ -3,6 +3,7 @@ import java.util.Scanner;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 
 public class Principal {
@@ -11,18 +12,19 @@ public class Principal {
 		String url = "jdbc:mysql://localhost:3306/movies?autoReconnect=true&useSSL=false";//add para evitar erro vermelho ?autoReconnect=true&useSSL=false 
 		String login = "avmss";
 		String senha = "123456";
-		Scanner entrada = new Scanner(System.in);
 		boolean loop = true;
 		
 		while(loop) {
-			JLabel label1 = new JLabel("Login: ");
-			login = label1.getName();
+			JLabel label1 = new JLabel("Login:");
+			JTextField login1 = new JTextField();
+			JOptionPane.showConfirmDialog(null,	new Object[]{label1, login1}, "Login", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+			login = login1.getText();
 			//System.out.print("Login: ");
 			//login = entrada.next();
 			//System.out.println(login);
-			JLabel label2 = new JLabel("Senha: ");
+			JLabel label2 = new JLabel("Senha:");
 			JPasswordField pass = new JPasswordField();
-			JOptionPaneonPane.showConfirmDialog(null,	new Object[]{label1, pass}, "Senha:", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showConfirmDialog(null,	new Object[]{label2, pass}, "Senha", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
 			senha = new String(pass.getPassword());
 			//System.out.print("Senha: ");
 			//senha = entrada.next();
@@ -34,7 +36,7 @@ public class Principal {
 			
 		}
 		
-		entrada.close();
+		//entrada.close();
 		
 		carregar(url, login, senha);
 		comeca(url, login, senha);
@@ -60,14 +62,16 @@ public class Principal {
 		String title1 = "";
 		Scanner entrada = new Scanner(System.in);
 		//boolean loop1 = true;
-		
+		//JLabel label3 = new JLabel("Consulta:");
+		//JOptionPane.showConfirmDialog(null,	new Object[]{label2, pass}, "Senha", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+		//JOptionPane.showConfirmDialog(null, new Object[]{label3}, "Consulta", JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_OPTION);
 		loop: while (true) {
 		/*Consulta*/
 		System.out.println("Consulta");
 		System.out.println("1 - ID");
 		System.out.println("2 - Titulo");
 		System.out.println("3 - Ano");
-		System.out.println("4 - Os 10 com mais score");
+		System.out.println("4 - Os 10 mais bem avaliados");
 		System.out.println("5 - Os 10 mais votados");
 		System.out.println("6 - Os 10 mais antigos");
 		System.out.println("7 - Os 10 mais recentes");
