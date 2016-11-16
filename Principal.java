@@ -1,5 +1,10 @@
 import java.sql.*;
 import java.util.Scanner;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
 
 public class Principal {
 
@@ -7,32 +12,78 @@ public class Principal {
 		String url = "jdbc:mysql://localhost:3306/movies?autoReconnect=true&useSSL=false";//add para evitar erro vermelho ?autoReconnect=true&useSSL=false 
 		String login = "avmss";
 		String senha = "123456";
+		boolean loop = true;
 		
-		comeca(url, login, senha);
+		while(loop) {
+			JLabel label1 = new JLabel("Login:");
+			JTextField login1 = new JTextField();
+			JOptionPane.showConfirmDialog(null,	new Object[]{label1, login1}, "Login", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+			login = login1.getText();
+			//System.out.print("Login: ");
+			//login = entrada.next();
+			//System.out.println(login);
+			JLabel label2 = new JLabel("Senha:");
+			JPasswordField pass = new JPasswordField();
+			JOptionPane.showConfirmDialog(null,	new Object[]{label2, pass}, "Senha", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+			senha = new String(pass.getPassword());
+			//System.out.print("Senha: ");
+			//senha = entrada.next();
+			//System.out.println(senha);
+			if (login.equals("avmss") && senha.equals("123456")) {
+				loop = false;
+				break;
+			}
+			
+		}
+		
+		//entrada.close();
+		
+		carregar(url, login, senha);
+		comecar(url, login, senha);
+		
 	}
 	
+	public static void carregar(String url, String login, String senha) {
+		try
+        {
+         Class.forName("com.mysql.jdbc.Driver").newInstance();
+            System.out.println("\nDriver carregado com sucesso!\n"); 
+        }
+        catch (Exception ex)
+        {
+            System.out.println("\nDriver nao pode ser carregado!");
+        }
+	}
 	
-	public static void comeca(String url, String login, String senha) {
+	public static void comecar(String url, String login, String senha) {
 		String sql = "";
 		int id1 = 1;
 		int year1 = 1;
 		String title1 = "";
 		Scanner entrada = new Scanner(System.in);
 		//boolean loop1 = true;
-		
+		//JLabel label3 = new JLabel("Consulta:");
+		//JOptionPane.showConfirmDialog(null,	new Object[]{label2, pass}, "Senha", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+		//JOptionPane.showConfirmDialog(null, new Object[]{label3}, "Consulta", JOptionPane.QUESTION_MESSAGE, JOptionPane.OK_OPTION);
 		loop: while (true) {
 		/*Consulta*/
 		System.out.println("Consulta");
 		System.out.println("1 - ID");
 		System.out.println("2 - Titulo");
 		System.out.println("3 - Ano");
-		System.out.println("4 - Os 10 com mais score");
+		System.out.println("4 - Os 10 mais bem avaliados");
 		System.out.println("5 - Os 10 mais votados");
 		System.out.println("6 - Os 10 mais antigos");
 		System.out.println("7 - Os 10 mais recentes");
 		System.out.println("10 - Sair");
 		int escolha = entrada.nextInt();
 		
+		/*
+		 * select c.performerID, p.name from casting c inner join performer p on p.ID = c.performerID where c.movieID = 100;
+		 * */
+		/*
+		 * select m.title, m.year, p.name from performer p inner join casting c on c.performerID = p.ID join movie m on m.ID where p.name like '%arnold sc%' and m.ID = c.movieID;
+		 * */
 		switch (escolha) {
 		case 1:
 			System.out.println("ID: ");
@@ -67,12 +118,7 @@ public class Principal {
 			break;
 		}
 		
-		//entrada.close();
 		
-		try
-        {
-         Class.forName("com.mysql.jdbc.Driver").newInstance();
-            System.out.println("\nDriver carregado com sucesso!\n");
          try
          {
                  Connection conn = DriverManager.getConnection(url, login, senha);
@@ -117,12 +163,6 @@ public class Principal {
          {
             System.out.println("\nErro no connection!");
          }  
-        }
-        catch (Exception ex)
-        {
-            System.out.println("\nDriver nao pode ser carregado!");
-        }
-		//n--;
 	}
 	entrada.close();
 	}
